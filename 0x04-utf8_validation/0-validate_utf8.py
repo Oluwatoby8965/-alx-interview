@@ -1,15 +1,37 @@
 #!/usr/bin/python3
-"""
-Main file for testing
-"""
+"""Determines a valid UTF-8 encoding"""
 
-validUTF8 = __import__('0-validate_utf8').validUTF8
 
-data = [65]
-print(validUTF8(data))
+def validUTF8(data):
+    """
+    Checks if a list of integers (data) is valid UTF-8 encoding
+    """
 
-data = [80, 121, 116, 104, 111, 110, 32, 105, 115, 32, 99, 111, 111, 108, 33]
-print(validUTF8(data))
+    bit1 = 1 << 7
+    bit2 = 1 << 6
+    byte_cnt = 0
 
-data = [229, 65, 127, 256]
-print(validUTF8(data))
+    if not data or len(data) == 0:
+        return True
+
+    for symbol in data:
+        bit = 1 << 7
+        if byte_cnt == 0:
+            while (bit & symbol):
+                byte_cnt += 1
+                bit = bit >> 1
+
+            if byte_cnt == 0:
+                continue
+            if byte_cnt == 1 or byte_cnt > 4:
+                return False
+        else:
+
+            if not (symbol & bit1 and not (symbol & bit2)):
+                return False
+        byte_cnt -= 1
+
+    if byte_cnt:
+        return False
+    else:
+        return True
