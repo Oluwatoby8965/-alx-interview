@@ -40,8 +40,8 @@ class NQueens:
         """
         for i in range(ocuppied_rows):
             if positions[i] == column or \
-                positions[i] - i == column - ocuppied_rows or \
-                positions[i] + i == column + ocuppied_rows:
+               positions[i] - i == column - ocuppied_rows or \
+               positions[i] + i == column + ocuppied_rows:
 
                 return False
         return True
@@ -61,17 +61,20 @@ class NQueens:
     def show_short_board(self, positions):
         """
         Show the queens positions on the board in compressed form,
-        each number represent the occupied column position in the corresponding row.
+        each number
         """
         line = ""
         for i in range(self.size):
             line += str(positions[i]) + " "
         print(line)
 
+
 def main():
     """Initialize and solve the n queens puzzle"""
     NQueens(8)
 
+
 if __name__ == "__main__":
+
     # execute only if run as a script
     main()
